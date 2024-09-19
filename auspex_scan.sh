@@ -10,7 +10,7 @@ if [ -z "$TARGET" ]; then
     exit 1
 fi
 
-echo "[*] Starting Recon on $TARGET - In the Name of the Emperor"
+echo "[*] Starting Recon on $TARGET - By the will of the Omnissiah"
 
 # Nmap TCP Scan for all ports with a rate of 3000 packets per second
 echo "[*] Performing Nmap TCP Scan..."
@@ -25,7 +25,7 @@ echo "[*] Performing Nmap UDP Scan..."
 sudo nmap -sU -p- --min-rate=3000 -T4 $TARGET -oN nmap_udp_scan.txt
 
 # Enum4linux Scan
-enum4linux-ng -As $TARGET -oA enum4linuxOut.txt
+enum4linux-ng -As $TARGET -oY enum4linuxOut
 
 # Whois lookup
 echo "[*] Performing WHOIS Lookup..."
