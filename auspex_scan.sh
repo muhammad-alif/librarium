@@ -18,7 +18,7 @@ nmap -p- --min-rate=3000 -T4 -Pn $TARGET -oN nmap_tcp_scan.txt
 
 # Nmap Detailed Scan on open ports
 echo "[*] Performing Nmap Detailed Scan on Open Ports..."
-nmap -sCV -p $(grep ^[0-9] nmap_tcp_scan.txt | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//) $TARGET -oN nmap_detailed_scan.txt
+nmap -sCV -Pn -p $(grep ^[0-9] nmap_tcp_scan.txt | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//) $TARGET -oN nmap_detailed_scan.txt
 
 # Nmap UDP Scan with a rate of 3000 packets per second
 echo "[*] Performing Nmap UDP Scan..."
