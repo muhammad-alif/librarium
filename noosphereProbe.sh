@@ -22,7 +22,7 @@ fi
 cd ferox || exit
 
 # File to check
-OUTPUT_FILE="feroxbuster.txt"
+OUTPUT_FILE="feroxbuster_${PORT}.txt"
 
 # If the output file exists, back it up
 if [ -f "$OUTPUT_FILE" ]; then
@@ -32,10 +32,12 @@ fi
 
 # Execute feroxbuster for directory discovery
 echo "[*] Running feroxbuster for http://$IP:$PORT"
-feroxbuster -u http://$IP:$PORT -C 400,401,402,403,404,405,500 -N 0 -n --dont-scan png,jpg,css,js,gif,svg -o feroxbuster.txt
+feroxbuster -u http://$IP:$PORT -C 400,401,402,403,404,405,500 -n --dont-scan png,jpg,css,js,gif,svg -o feroxbuster.txt
 
 # Execute feroxbuster for file discovery
 echo "[*] Running feroxbuster for files using raft-large-files-lowercase.txt"
-feroxbuster -u http://$IP:$PORT -C 400,401,402,403,404,405,500 -N 0 -n -w /usr/share/seclists/Discovery/Web-Content/raft-large-files-lowercase.txt --dont-scan png,jpg,css,js,gif -o feroxbuster_file.txt
+feroxbuster -u http://$IP:$PORT -C 400,401,402,403,404,405,500 -n -w /usr/share/seclists/Discovery/Web-Content/raft-large-files-lowercase.txt --dont-scan png,jpg,css,js,gif -o feroxbuster_file.txt
 
+echo "[*] Running feroxbuster for files using the last resort medium, feel free to exit"
+feroxbuster -u http://$IP:$PORT -C 400,401,402,403,404,405,500 -n -w /usr/share/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt --dont-scan png,jpg,css,js,gif -o feroxbuster_file.txt
 echo "[*] nooSphere scan complete. Results saved in the 'ferox' directory."
